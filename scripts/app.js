@@ -6,6 +6,8 @@ appContents.style.display = "none";
 window.addEventListener('keydown', init);
 window.addEventListener('click', init);
 
+checkbox = document.getElementById("mute");
+
 function init() {
   if (isAppInit) {
     return;
@@ -18,8 +20,9 @@ function init() {
 
     const oscillator = audioCtx.createOscillator();
 
-    oscillator.type = "sine";
+    oscillator.type = "square";
     oscillator.frequency.setValueAtTime(440, audioCtx.currentTime); 
     oscillator.connect(audioCtx.destination);
     oscillator.start();
+    oscillator.stop(checkbox.checked);
 }
