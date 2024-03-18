@@ -2,6 +2,24 @@ const appContents = document.querySelector(".app-contents");
 let isAppInit = false;
 appContents.style.display = "block";
 
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function osc1_start(freq){
+  if(isAppInit){
+    return;
+  }
+
+  oscillator1 = audioCtx.createOscillator();
+  oscillator1.type="sine";
+  oscillator1.connect(audioCtx.destination);
+
+  oscillator1.frequency.setValueAtTime(freq, audioCtx.currentTime); 
+  oscillator1.start();
+}
+function osc1_stop(){
+  oscillator1.stop();
+}
+
+
 // Функция для обработки нажатия клавиши
 function handleKeyPress(event) {
   var keyPressed = String.fromCharCode(event.which || event.keyCode);
@@ -109,20 +127,3 @@ volume = document.getElementById("volume")
 
 //freqElement = document.getElementById("freq")
 //oscFreq = freqElement.value
-
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-function osc1_start(freq){
-  if(isAppInit){
-    return;
-  }
-
-  oscillator1 = audioCtx.createOscillator();
-  oscillator1.type="sine";
-  oscillator1.connect(audioCtx.destination);
-
-  oscillator1.frequency.setValueAtTime(freq, audioCtx.currentTime); 
-  oscillator1.start();
-}
-function osc1_stop(){
-  oscillator1.stop();
-}
